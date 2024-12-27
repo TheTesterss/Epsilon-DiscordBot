@@ -13,7 +13,7 @@ import {
     UserContextMenuCommandInteraction,
     UserSelectMenuInteraction
 } from 'discord.js';
-import Self from '../classes/Self';
+import Self from '../modules/Self';
 import Database from '../modules/Database';
 
 export enum EventType {

@@ -1,7 +1,7 @@
 // ? Imports libraries.
 import { Client, Collection, IntentsBitField, Events, ClientEvents } from 'discord.js';
 import { EventEmitter } from 'node:events';
-import Database from '../modules/Database';
+import Database from './Database';
 import path from 'node:path';
 import fs from 'node:fs';
 
@@ -15,7 +15,7 @@ import {
     CustomEvents_E,
     DatabaseEvents_E
 } from '../types/events';
-import { blue, red, yellow } from '../modules/Colors';
+import { blue, red, yellow } from './Colors';
 
 export default class Self extends EventEmitter {
     // ? Public
@@ -40,7 +40,7 @@ export default class Self extends EventEmitter {
             IntentsBitField.Flags.MessageContent // ? Captures the content of messages.
         ]
     });
-    public database: Database = new Database();
+    public database: Database = new Database(this);
     public commands: Collection<string, {}> = new Collection();
 
     // ? Private
