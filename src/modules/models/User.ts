@@ -36,16 +36,15 @@ export interface UserDocument extends Document {
 }
 
 const warnSchema = new mongoose.Schema<Warn>({
-    id: { type: String, required: true, unique: true },
     when: { type: Date },
-    by: { type: String, unique: true }, // ? Returns an user's ID.
+    by: { type: String }, // ? Returns an user's ID.
     reason: { type: String },
     deleted: { type: Boolean, default: false }
 });
 
 const blackListSchema = new mongoose.Schema<Blacklist>({
     isBlacklisted: { type: Boolean, default: false },
-    by: { type: String, unique: true }, // ? Returns an user's ID.
+    by: { type: String }, // ? Returns an user's ID.
     dates: {
         from: { type: Date },
         to: { type: Date }
@@ -57,7 +56,7 @@ const blackListSchema = new mongoose.Schema<Blacklist>({
 
 const whiteListSchema = new mongoose.Schema<Whitelist>({
     isWhitelisted: { type: Boolean, default: false },
-    by: { type: String, unique: true }, // ? Returns an user's ID.
+    by: { type: String }, // ? Returns an user's ID.
     dates: {
         from: { type: Date }
     }
@@ -71,5 +70,4 @@ export default mongoose.model(
         blacklist: blackListSchema,
         whitelist: whiteListSchema
     })
-)
-
+);

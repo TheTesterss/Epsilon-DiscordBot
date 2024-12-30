@@ -6,6 +6,7 @@ import {
     ClientEvents,
     CommandInteraction,
     GuildMember,
+    MentionableSelectMenuInteraction,
     MessageContextMenuCommandInteraction,
     ModalSubmitInteraction,
     RoleSelectMenuInteraction,
@@ -13,13 +14,15 @@ import {
     UserContextMenuCommandInteraction,
     UserSelectMenuInteraction
 } from 'discord.js';
-import Self from '../modules/Self';
+import Self from '../classes/Self';
 import Database from '../modules/Database';
+import { CommandInterface } from './commands';
+import { LangTypes } from './options';
 
 export enum EventType {
-    Classic = 1,
-    Custom = 2,
-    Database = 3
+    CLASSIC = 1,
+    CUSTOM = 2,
+    DATABASE = 3
 }
 
 export enum DatabaseEvents_E {
@@ -43,6 +46,7 @@ export enum CustomEvents_E {
     UserSelectMenuExecution = 'userSelectMenuExecution',
     ChannelSelectMenuExecution = 'channelSelectMenuExecution',
     StringSelectMenuExecution = 'stringSelectMenuExecution',
+    MentionableSelectMenuoption = 'mentionableSelectMenuExecution',
     AnySelectMenuExecution = 'anySelectMenuExecution'
 }
 
@@ -52,39 +56,53 @@ export interface EventInterface {
     name: keyof ClientEvents | keyof CustomEvents | keyof DatabaseEvents;
     type: EventTypes;
     once?: boolean; // ? Should the event be only executed once?
-    run: (self: Self, db: Database, ...args: any[]) => void;
+    run: (...args: any[]) => void;
 }
 
 export interface CustomEvents {
-    slashCommandExecution: [self: Self, db: Database, interaction: CommandInteraction, command: {}];
+    slashCommandExecution: [
+        self: Self,
+        db: Database,
+        interaction: CommandInteraction,
+        command: CommandInterface,
+        lang: LangTypes
+    ];
     userContextCommandExecution: [
         self: Self,
         db: Database,
         interaction: UserContextMenuCommandInteraction,
-        command: {}
+        command: CommandInterface,
+        lang: LangTypes
     ];
     messageContextCommandExecution: [
         self: Self,
         db: Database,
         interaction: MessageContextMenuCommandInteraction,
-        command: {}
+        command: CommandInterface,
+        lang: LangTypes
     ];
-    buttonExecution: [self: Self, db: Database, interaction: ButtonInteraction, command: {}];
-    modalExecution: [self: Self, db: Database, interaction: ModalSubmitInteraction, command: {}];
-    autocompleteExecution: [self: Self, db: Database, interaction: AutocompleteInteraction, command: {}];
-    roleSelectMenuExecution: [self: Self, db: Database, interaction: RoleSelectMenuInteraction, command: {}];
-    userSelectMenuExecution: [self: Self, db: Database, interaction: UserSelectMenuInteraction, command: {}];
-    channelSelectMenuExecution: [self: Self, db: Database, interaction: ChannelSelectMenuInteraction, command: {}];
-    stringSelectMenuExecution: [self: Self, db: Database, interaction: StringSelectMenuInteraction, command: {}];
-    anySelectMenuExecution: [self: Self, db: Database, interaction: AnySelectMenuInteraction, command: {}];
+    buttonExecution: [self: Self, db: Database, interaction: ButtonInteraction, lang: LangTypes];
+    modalExecution: [self: Self, db: Database, interaction: ModalSubmitInteraction, lang: LangTypes];
+    autocompleteExecution: [self: Self, db: Database, interaction: AutocompleteInteraction, lang: LangTypes];
+    roleSelectMenuExecution: [self: Self, db: Database, interaction: RoleSelectMenuInteraction, lang: LangTypes];
+    userSelectMenuExecution: [self: Self, db: Database, interaction: UserSelectMenuInteraction, lang: LangTypes];
+    channelSelectMenuExecution: [self: Self, db: Database, interaction: ChannelSelectMenuInteraction, lang: LangTypes];
+    stringSelectMenuExecution: [self: Self, db: Database, interaction: StringSelectMenuInteraction, lang: LangTypes];
+    mentionableSelectMenuExecution: [
+        self: Self,
+        db: Database,
+        interaction: MentionableSelectMenuInteraction,
+        lang: LangTypes
+    ];
+    anySelectMenuExecution: [self: Self, db: Database, interaction: AnySelectMenuInteraction, lang: LangTypes];
 }
 
 export interface DatabaseEvents {
-    levelUp: [db: typeof Database, member: typeof GuildMember];
-    deposit: [db: typeof Database, member: typeof GuildMember];
-    withdraw: [db: typeof Database, member: typeof GuildMember];
-    blacklist: [db: typeof Database, member?: typeof GuildMember];
-    whitelist: [db: typeof Database, member?: typeof GuildMember];
-    prevnames: [db: typeof Database, member: typeof GuildMember];
-    ready: [db: typeof Database];
+    levelUp: [self: Self, db: typeof Database, member: typeof GuildMember];
+    deposit: [self: Self, db: typeof Database, member: typeof GuildMember];
+    withdraw: [self: Self, db: typeof Database, member: typeof GuildMember];
+    blacklist: [self: Self, db: typeof Database, member?: typeof GuildMember];
+    whitelist: [self: Self, db: typeof Database, member?: typeof GuildMember];
+    prevnames: [self: Self, db: typeof Database, member: typeof GuildMember];
+    ready: [self: Self, db: typeof Database];
 }

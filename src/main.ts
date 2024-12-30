@@ -2,5 +2,5 @@
 import { config } from 'dotenv';
 config();
 
-import Self from './modules/Self';
+import Self from './classes/Self';
 new Self().startClient(process.env.TOKEN!);
