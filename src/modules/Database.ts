@@ -26,17 +26,17 @@ export default class Database extends EventEmitter {
         this.self = client;
         this.mongoose
             .connect(process.env.mongo_uri, options as ConnectOptions)
-            .then(() => console.log(`${green('[EPISLON | ERROR]')} | Connected to ${green('MongoDB')}.`))
+            .then(() => console.log(`${green('[EPISLON | DB]')} | Connected to ${green('MongoDB')}.`))
             .catch((err) => console.error(`${red('[EPISLON | ERROR]')} | ${red('MongoDB')} connection error:`, err));
     }
 
-    public async fetchUsers(): Promise<UserDocument[]> {
-        const users: UserDocument[] = await User.find({}).exec();
-        return users;
+    public async fetchUsers(filter: (user: UserDocument) => void): Promise<UserDocument[]> {
+        const users: UserDocument[] = await User.find().exec();
+        return users.filter(filter);
     }
 
-    public async fetchGuilds(): Promise<GuildDocument[]> {
-        const guilds: GuildDocument[] = await Guild.find({}).exec();
-        return guilds;
+    public async fetchGuilds(filter: (guild: GuildDocument) => void): Promise<GuildDocument[]> {
+        const guilds: GuildDocument[] = await Guild.find().exec();
+        return guilds.filter(filter);
     }
 }

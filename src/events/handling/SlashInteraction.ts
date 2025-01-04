@@ -17,27 +17,37 @@ export = {
         command: CommandInterface,
         lang: LangTypes
     ): Promise<void> => {
-        for(const option in command.customOptions ?? {}) {
-            if(!command.customOptions![option as keyof CommandCustomOptionsInterface]) continue;
-            const { name, unacceptanceFunction, verifyCondition } = self.preconditions[option as keyof CommandCustomOptionsInterface];
-            if(!verifyCondition(self, db, interaction, lang)) return void interaction.editReply(await unacceptanceFunction(self, db, interaction, lang));
+        for (const option in command.customOptions ?? {}) {
+            if (!command.customOptions![option as keyof CommandCustomOptionsInterface]) continue;
+            const { unacceptanceFunction, verifyCondition } =
+                self.preconditions[option as keyof CommandCustomOptionsInterface];
+            if (!verifyCondition(self, db, interaction, lang))
+                return void interaction.editReply(
+                    await unacceptanceFunction(
+                        self,
+                        db,
+                        interaction,
+                        lang,
+                        command.managedOptions?.ephemeralSending ?? false
+                    )
+                );
         }
 
         try {
-            switch(lang) {
+            switch (lang) {
                 case LangType.EN:
-                    if(command.en) command.en(self, db, interaction, command, lang);
-                    else throw new Error("No function put for english usage. Try out the french version.");
+                    if (command.en) command.en(self, db, interaction, command, lang);
+                    else throw new Error('No function put for english usage. Try out the french version.');
                     break;
                 case LangType.FR:
-                    if(command.fr) command.fr(self, db, interaction, command, lang);
-                    else throw new Error("No function put for english usage. Try out the english version.");
+                    if (command.fr) command.fr(self, db, interaction, command, lang);
+                    else throw new Error('No function put for english usage. Try out the english version.');
                     break;
                 default:
-                    throw new Error("The lang has been wrongly configurated.");
+                    throw new Error('The lang has been wrongly configurated.');
             }
-        } catch(e) {
-            return void interaction.editReply(await errorHandling(self, db, interaction.guildId ?? "0", e as Error));
+        } catch (e) {
+            return void interaction.editReply(await errorHandling(self, db, interaction.guildId ?? '0', e as Error));
         }
     }
 } as EventInterface;

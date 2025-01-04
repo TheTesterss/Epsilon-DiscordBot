@@ -35,7 +35,8 @@ export = {
         switch (interaction.type) {
             case InteractionType.ApplicationCommand:
                 const command: CommandInterface = self.commandManager.commands.get(interaction.commandName)!;
-                if (!interaction.deferred) await interaction.deferReply({ ephemeral: command.managedOptions?.ephemeralSending ?? false});
+                if (!interaction.deferred)
+                    await interaction.deferReply({ ephemeral: command.managedOptions?.ephemeralSending ?? false });
                 switch (interaction.commandType) {
                     case ApplicationCommandType.ChatInput:
                         self.emit(
@@ -76,7 +77,13 @@ export = {
                 break;
             case InteractionType.MessageComponent:
                 if (interaction.componentType !== ComponentType.Button)
-                    self.emit(CustomEvents_E.AnySelectMenuExecution, self, db, interaction as AnySelectMenuInteraction, lang);
+                    self.emit(
+                        CustomEvents_E.AnySelectMenuExecution,
+                        self,
+                        db,
+                        interaction as AnySelectMenuInteraction,
+                        lang
+                    );
                 switch (interaction.componentType) {
                     case ComponentType.Button:
                         self.emit(CustomEvents_E.ButtonExecution, self, db, interaction as ButtonInteraction, lang);

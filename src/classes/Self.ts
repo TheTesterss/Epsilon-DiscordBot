@@ -1,5 +1,5 @@
 // ? Imports libraries.
-import { Client, IntentsBitField } from 'discord.js';
+import { ActivitiesOptions, Client, Collection, IntentsBitField } from 'discord.js';
 import { EventEmitter } from 'node:events';
 import Database from '../modules/Database';
 import EventManager from './EventManager';
@@ -34,11 +34,11 @@ export default class Self extends EventEmitter {
     public eventManager: EventManager = new EventManager(this);
     public commandManager: CommandManager = new CommandManager(this);
     public preconditions: Record<keyof CommandCustomOptionsInterface, Precondition> = {
-        blacklistDisallowed: require("../modules/preconditions/forBotOwnerOnly").default,
-        forBotOwnerOnly: require("../modules/preconditions/forBotOwnerOnly").default,
-        forGuildAdminsOnly: require("../modules/preconditions/forBotOwnerOnly").default,
-        forGuildOwnerOnly: require("../modules/preconditions/forBotOwnerOnly").default
-    }
+        blacklistDisallowed: require('../modules/preconditions/forBotOwnerOnly').default,
+        forBotOwnerOnly: require('../modules/preconditions/forBotOwnerOnly').default,
+        forGuildAdminsOnly: require('../modules/preconditions/forBotOwnerOnly').default,
+        forGuildOwnerOnly: require('../modules/preconditions/forBotOwnerOnly').default
+    };
 
     constructor() {
         super({ captureRejections: true });

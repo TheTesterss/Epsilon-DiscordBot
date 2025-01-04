@@ -3,10 +3,12 @@ import {
     ButtonBuilder,
     ButtonStyle,
     EmbedBuilder,
+    InteractionReplyOptions,
+    MessageCreateOptions,
     MessageActionRowComponentBuilder,
-    MessageCreateOptions
+    MessagePayload,
+    InteractionEditReplyOptions
 } from 'discord.js';
-import { InteractionsResolvable } from '../../types/commands';
 import { CommandColors } from '../../types/colors';
 import Self from '../../classes/Self';
 import Database from '../../modules/Database';
@@ -19,16 +21,18 @@ export const errorHandling = async (
     db: Database,
     id: string,
     error: Error
-): Promise<MessageCreateOptions> => {
+): Promise<MessageCreateOptions | InteractionReplyOptions | MessagePayload | InteractionEditReplyOptions> => {
     const d: GuildDocument | null = await db.models.GuildDB.findOne({ id });
     const lang: LangTypes = d?.lang ?? LangType.EN;
-    const myEmbed = new EmbedBuilder().setColor(CommandColors.ERROR).setFooter(generateInternalErrorFooter(self, error.name)[lang]);
+    const myEmbed = new EmbedBuilder()
+        .setColor(CommandColors.ERROR)
+        .setFooter(generateInternalErrorFooter(self, error.name)[lang]);
     const myRow = new ActionRowBuilder<MessageActionRowComponentBuilder>();
 
     myEmbed
         .addFields({
             name: `📜 **${lang === 'fr' ? 'Chemins complets' : 'Full paths'}**`,
-            value: `\`\`\`ts\n${error.stack?.split("\n").slice(1).join("\n").split("").slice(0, 1015).join("") ?? lang === "en" ? "Untrackable": "Intracable"}\`\`\``,
+            value: `\`\`\`ts\n${(error.stack?.split('\n').slice(1).join('\n').split('').slice(0, 1015).join('') ?? lang === 'en') ? 'Untrackable' : 'Intracable'}\`\`\``,
             inline: false
         })
         .setDescription(`## ${error.message}`);

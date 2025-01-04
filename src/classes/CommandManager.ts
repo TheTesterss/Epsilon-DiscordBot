@@ -29,11 +29,7 @@ import fs from 'fs';
 import path from 'path';
 import { blue, green, red, yellow } from '../modules/Colors';
 import Self from './Self';
-import {
-    CommandInterface,
-    CommandOptionsInterface,
-    CommandOptionsManagerResolvable
-} from '../types/commands';
+import { CommandInterface, CommandOptionsInterface, CommandOptionsManagerResolvable } from '../types/commands';
 import { LangTypes, LangType } from '../types/options';
 
 export default class CommandManager {
@@ -120,7 +116,12 @@ export default class CommandManager {
                                     fr: 'Pop ! Cette commande a perdue sa description.'
                                 }
                             )
-                            .setIntegrationTypes(model.integrations ?? [ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall])
+                            .setIntegrationTypes(
+                                model.integrations ?? [
+                                    ApplicationIntegrationType.GuildInstall,
+                                    ApplicationIntegrationType.UserInstall
+                                ]
+                            )
                             .setNSFW(model.managedOptions?.isNSFW ?? false)
                             .setDefaultMemberPermissions(
                                 model.managedOptions?.userRequiredPermissions?.at(0)
@@ -142,7 +143,12 @@ export default class CommandManager {
                                     : null
                             )
                             .setContexts(contexts)
-                            .setIntegrationTypes(model.integrations ?? [ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall])
+                            .setIntegrationTypes(
+                                model.integrations ?? [
+                                    ApplicationIntegrationType.GuildInstall,
+                                    ApplicationIntegrationType.UserInstall
+                                ]
+                            )
                             .setNameLocalizations(model.nameLocalizations!)
                             .setType(ApplicationCommandType.User as ContextMenuCommandType);
 
@@ -157,16 +163,19 @@ export default class CommandManager {
                                     : null
                             )
                             .setContexts(contexts)
-                            .setIntegrationTypes(model.integrations ?? [ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall])
+                            .setIntegrationTypes(
+                                model.integrations ?? [
+                                    ApplicationIntegrationType.GuildInstall,
+                                    ApplicationIntegrationType.UserInstall
+                                ]
+                            )
                             .setNameLocalizations(model.nameLocalizations!)
                             .setType(ApplicationCommandType.Message as ContextMenuCommandType);
 
                         commands.push(message);
                         break;
                 }
-                console.log(
-                    ` | ${blue(model.name)} has been added to discord.`
-                );
+                console.log(` | ${blue(model.name)} has been added to discord.`);
             }
 
             const rest = new REST({ version: '10' }).setToken(process.env.token);
@@ -318,19 +327,20 @@ export default class CommandManager {
     }
 
     public async deleteCommands(): Promise<void> {
-        for(const command of this.commands.keys())
-            this.commands.delete(command);
-        for(const command of this.self.djsClient.application?.commands.cache ?? []) {
+        for (const command of this.commands.keys()) this.commands.delete(command);
+        for (const command of this.self.djsClient.application?.commands.cache ?? []) {
             await command[1].delete();
-            console.error(` | ${red(command[1].name)} has been removed from discord.`)
+            console.error(` | ${red(command[1].name)} has been removed from discord.`);
         }
     }
 
     public async deleteCommand(identifier: string): Promise<void> {
-        const command: ApplicationCommand | undefined = this.self.djsClient.application?.commands.cache.find((command: ApplicationCommand) => command.name === identifier || command.id === identifier);
-        if(command) {
+        const command: ApplicationCommand | undefined = this.self.djsClient.application?.commands.cache.find(
+            (command: ApplicationCommand) => command.name === identifier || command.id === identifier
+        );
+        if (command) {
             await command.delete();
-            console.error(` | ${red(command.name)} has been removed from discord.`)
+            console.error(` | ${red(command.name)} has been removed from discord.`);
         }
     }
 }

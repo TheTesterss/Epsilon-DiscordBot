@@ -100,9 +100,7 @@ export default class EventManager {
                     break;
             }
 
-            console.log(
-                ` | ${blue(model.name)} event has been registered.`
-            );
+            console.log(` | ${blue(model.name)} event has been registered.`);
         }
     }
 }

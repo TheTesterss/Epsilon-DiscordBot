@@ -4,6 +4,7 @@ declare global {
             token: string;
             owner: string;
             mongo_uri: string;
+            logchannel: string;
         }
     }
 }

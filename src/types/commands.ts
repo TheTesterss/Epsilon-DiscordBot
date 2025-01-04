@@ -35,7 +35,7 @@ export interface CommandInterface {
             | MessageContextMenuCommandInteraction,
         command: CommandInterface,
         lang: LangTypes
-    ) => void;
+    ) => void | Promise<void>;
     fr?: (
         self: Self,
         db: Database,
@@ -45,7 +45,7 @@ export interface CommandInterface {
             | MessageContextMenuCommandInteraction,
         command: CommandInterface,
         lang: LangTypes
-    ) => void;
+    ) => void | Promise<void>;
 }
 
 export interface CommandOptionsInterface {
