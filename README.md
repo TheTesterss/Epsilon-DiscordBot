@@ -64,6 +64,7 @@ token=string
 owner=string
 mongo_uri=string
 logchannel=string
+dblogchannel=string
 ```
 - To collect the discord token go to this [website](https://discord.com/developers).
 - To collect the mongo url go to this [website](https://mongodb.com).

@@ -5,6 +5,7 @@ declare global {
             owner: string;
             mongo_uri: string;
             logchannel: string;
+            dblogchannel: string;
         }
     }
 }

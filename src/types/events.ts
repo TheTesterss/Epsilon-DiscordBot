@@ -26,12 +26,10 @@ export enum EventType {
 }
 
 export enum DatabaseEvents_E {
-    LevelUp = 'levelUp',
-    Deposit = 'deposit',
-    Withdraw = 'withdraw',
-    Blacklist = 'blacklist',
-    Whitelist = 'whitelist',
-    Prevnames = 'prevnames',
+    OnBlacklistAdd = 'onBlacklistAdd',
+    OnBlacklistRemove = 'onBlacklistRemove',
+    OnWhitelistAdd = 'onWhitelistAdd',
+    OnWhitelistRemove = 'onWhitelistRemove',
     Ready = 'ready'
 }
 
@@ -98,11 +96,9 @@ export interface CustomEvents {
 }
 
 export interface DatabaseEvents {
-    levelUp: [self: Self, db: typeof Database, member: typeof GuildMember];
-    deposit: [self: Self, db: typeof Database, member: typeof GuildMember];
-    withdraw: [self: Self, db: typeof Database, member: typeof GuildMember];
-    blacklist: [self: Self, db: typeof Database, member?: typeof GuildMember];
-    whitelist: [self: Self, db: typeof Database, member?: typeof GuildMember];
-    prevnames: [self: Self, db: typeof Database, member: typeof GuildMember];
-    ready: [self: Self, db: typeof Database];
+    onBlacklistAdd: [self: Self, db: Database, id: string];
+    onBlacklistRemove: [self: Self, db: Database, id: string];
+    onWhitelistAdd: [self: Self, db: Database, id: string];
+    onWhitelistRemove: [self: Self, db: Database, id: string];
+    ready: [self: Self, db: Database];
 }

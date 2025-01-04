@@ -68,7 +68,7 @@ export default class EventManager {
             throw new TypeError(`${red(this.errorText)} | ${red('Event name')} argument must be valid.`);
         if (event.once && ![true, false].includes(event.once))
             throw new TypeError(`${red(this.errorText)} | ${red('Event once')} argument must be a boolean.`);
-        if (!(event.type in Object.keys(this.eventTypes)))
+        if (!(event.type in this.eventTypes))
             throw new TypeError(
                 `${red(this.errorText)} | ${red('Event type')} must be a valid type. Refer to ${yellow('"EventType" enum')}.`
             );

@@ -15,7 +15,12 @@ export class Precondition {
         | (InteractionEditReplyOptions | InteractionReplyOptions | MessagePayload)
         | Promise<InteractionEditReplyOptions | InteractionReplyOptions | MessagePayload>;
     public name: string;
-    public verifyCondition: (self: Self, db: Database, interaction: InteractionsResolvable, lang: LangTypes) => boolean;
+    public verifyCondition: (
+        self: Self,
+        db: Database,
+        interaction: InteractionsResolvable,
+        lang: LangTypes
+    ) => Promise<boolean> | boolean;
 
     constructor(
         name: string,
@@ -28,7 +33,12 @@ export class Precondition {
         ) =>
             | (InteractionEditReplyOptions | InteractionReplyOptions | MessagePayload)
             | Promise<InteractionEditReplyOptions | InteractionReplyOptions | MessagePayload>,
-        verifyCondition: (self: Self, db: Database, interaction: InteractionsResolvable, lang: LangTypes) => boolean
+        verifyCondition: (
+            self: Self,
+            db: Database,
+            interaction: InteractionsResolvable,
+            lang: LangTypes
+        ) => Promise<boolean> | boolean
     ) {
         this.verifyCondition = verifyCondition;
         this.unacceptanceFunction = unacceptanceFunction;

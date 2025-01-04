@@ -9,7 +9,7 @@ import { CommandColors } from '../../types/colors';
 import { generateDeniedAccessFooter } from '../../utils/texts';
 
 export default new Precondition(
-    Preconditions.RESERVED_FOR_BOT_OWNER,
+    Preconditions.RESERVED_FOR_GUILD_OWNER,
     async (
         self: Self,
         db: Database,
@@ -26,8 +26,8 @@ export default new Precondition(
                 name: `📜 **${lang === 'fr' ? 'Comprendre pourquoi ?' : 'Understand why?'}**`,
                 value:
                     lang === 'fr'
-                        ? `\`\`\`diff\nCertaines commandes obligent des permissions comme celle de gérant du client pour diverses raisons:\n\n+ Accès à des données réservées.\n+ Accès à toutes les fonctionalités du client.\n+ Et bien plus encore.\`\`\``
-                        : `\`\`\`diff\nCertains commands demands permissions such as client manager for multiples reasons:\n\n+ Access to reserved datas.\n+ Access to every client's functionalities.\n+ And much more.\`\`\``,
+                        ? `\`\`\`diff\nCertaines commandes obligent des permissions comme celle de gérant de serveur pour diverses raisons:\n\n+ Accès à des données réservées.\n+ Accès à toutes les fonctionalités du client.\n+ Et bien plus encore.\`\`\``
+                        : `\`\`\`diff\nCertains commands demands permissions such as guild manager for multiples reasons:\n\n+ Access to reserved datas.\n+ Access to every client's functionalities.\n+ And much more.\`\`\``,
                 inline: false
             })
             .setDescription(
@@ -42,6 +42,6 @@ export default new Precondition(
         };
     },
     (self: Self, db: Database, interaction: InteractionsResolvable, lang: LangTypes): boolean => {
-        return process.env.owner === interaction.user.id;
+        return interaction.guild?.ownerId === interaction.user.id;
     }
 );

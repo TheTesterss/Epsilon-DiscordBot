@@ -9,7 +9,7 @@ import { CommandColors } from '../../types/colors';
 import { generateDeniedAccessFooter } from '../../utils/texts';
 
 export default new Precondition(
-    Preconditions.RESERVED_FOR_BOT_OWNER,
+    Preconditions.DISALLOW_BLACKLISTED_USERS,
     async (
         self: Self,
         db: Database,
@@ -41,7 +41,9 @@ export default new Precondition(
             embeds: [myEmbed]
         };
     },
-    (self: Self, db: Database, interaction: InteractionsResolvable, lang: LangTypes): boolean => {
-        return process.env.owner === interaction.user.id;
+    async (self: Self, db: Database, interaction: InteractionsResolvable, lang: LangTypes): Promise<boolean> => {
+        const user = await db.models.UserDB.findOne({ id: interaction.user.id });
+        if (!user) return true;
+        return !user.blacklist?.isBlacklisted;
     }
 );

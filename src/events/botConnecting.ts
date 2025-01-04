@@ -1,4 +1,4 @@
-import { ApplicationCommand, Events, Guild, User } from 'discord.js';
+import { ActivityType, ApplicationCommand, Events, Guild, User } from 'discord.js';
 import { EventInterface, EventType } from '../types/events';
 import Self from '../classes/Self';
 import Database from '../modules/Database';
@@ -6,6 +6,7 @@ import { UserDocument } from '../modules/models/User';
 import { blue, yellow } from '../modules/Colors';
 import { GuildDocument } from '../modules/models/Guild';
 import { LangType } from '../types/options';
+import * as fs from 'fs';
 
 export = {
     name: Events.ClientReady,
@@ -43,5 +44,35 @@ export = {
                 `${yellow('[EPSILON | DB]')} | ${yellow(guild.name.toUpperCase())} has been added to the database`
             );
         });
+
+        // ! Handles every client status.
+        let activities = fetchActivities();
+        setInterval(() => {
+            activities = fetchActivities();
+        }, 3_600_000);
+        let i = 0;
+        setInterval(() => {
+            if (i >= activities.length) i = 0;
+
+            self.djsClient.user?.setActivity({
+                name: activities[i].text,
+                type: activities[i].type,
+                url: activities[i].url ?? undefined
+            });
+            i++;
+        }, 60_000);
     }
 } as EventInterface;
+
+type StockedActivityType = {
+    text: string;
+    type: ActivityType;
+    url?: string;
+};
+
+function fetchActivities(): StockedActivityType[] {
+    const values: StockedActivityType[] =
+        JSON.parse(fs.readFileSync('./src/utils/data/activities.json', 'utf-8')) ?? [];
+
+    return values;
+}

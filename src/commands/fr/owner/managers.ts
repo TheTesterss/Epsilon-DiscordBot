@@ -44,274 +44,7 @@ type ActionType = {
 
 export = {
     name: 'managers',
-    nameLocalizations: { fr: 'gestionnaires' },
-    integrations: [ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall],
-    types: [ApplicationCommandType.ChatInput],
-    options: [
-        {
-            name: 'list',
-            nameLocalizations: { fr: 'liste' },
-            type: ApplicationCommandOptionType.SubcommandGroup,
-            options: [
-                {
-                    name: 'white',
-                    nameLocalizations: { fr: 'blanche' },
-                    description: 'Used to manage the whitelisted users.',
-                    descriptionLocalizations: {
-                        fr: 'Utilisé pour gérer les utilisateurs sous liste blanche.'
-                    },
-                    type: ApplicationCommandOptionType.Subcommand
-                },
-                {
-                    name: 'black',
-                    nameLocalizations: { fr: 'noire' },
-                    description: 'Used to manage the blacklisted users.',
-                    descriptionLocalizations: {
-                        fr: 'Utilisé pour gérer les utilisateurs sous liste noire.'
-                    },
-                    type: ApplicationCommandOptionType.Subcommand
-                }
-            ]
-        },
-        {
-            name: 'client',
-            nameLocalizations: { fr: 'client' },
-            description: 'Used to manage my profile.',
-            descriptionLocalizations: {
-                fr: 'Utilisé pour gérer mon profil.'
-            },
-            type: ApplicationCommandOptionType.SubcommandGroup,
-            options: [
-                {
-                    name: 'username',
-                    nameLocalizations: { fr: 'nom' },
-                    description: 'Used to change my username.',
-                    descriptionLocalizations: {
-                        fr: 'Utilisé pour changer mon nom.'
-                    },
-                    type: ApplicationCommandOptionType.Subcommand,
-                    options: [
-                        {
-                            name: 'name',
-                            nameLocalizations: { fr: 'nom' },
-                            description: 'The new username.',
-                            descriptionLocalizations: {
-                                fr: 'Le nouveau nom.'
-                            },
-                            type: ApplicationCommandOptionType.String,
-                            required: true,
-                            maxLength: 32
-                        }
-                    ]
-                },
-                {
-                    name: 'avatar',
-                    nameLocalizations: { fr: 'avatar' },
-                    description: 'Used to change my avatar.',
-                    descriptionLocalizations: {
-                        fr: 'Utilisé pour changer mon avatar.'
-                    },
-                    type: ApplicationCommandOptionType.Subcommand,
-                    options: [
-                        {
-                            name: 'file',
-                            nameLocalizations: { fr: 'fichier' },
-                            description: 'The new avatar file.',
-                            descriptionLocalizations: {
-                                fr: 'Le fichier du nouvel avatar.'
-                            },
-                            type: ApplicationCommandOptionType.Attachment,
-                            required: true
-                        }
-                    ]
-                },
-                {
-                    name: 'activity',
-                    nameLocalizations: { fr: 'activité' },
-                    description: 'Used to change my status.',
-                    descriptionLocalizations: {
-                        fr: 'Utilisé pour changer mon statut.'
-                    },
-                    type: ApplicationCommandOptionType.Subcommand,
-                    options: [
-                        {
-                            name: 'function',
-                            nameLocalizations: { fr: 'fonction' },
-                            description: "What you want to do with client's activities.",
-                            descriptionLocalizations: {
-                                fr: 'Que souhaites tu faire avec les activitités du client.'
-                            },
-                            type: ApplicationCommandOptionType.String,
-                            required: true,
-                            choices: [
-                                {
-                                    name: 'Add',
-                                    name_localizations: {
-                                        fr: 'Ajouter'
-                                    },
-                                    value: 'add'
-                                },
-                                {
-                                    name: 'Remove',
-                                    name_localizations: {
-                                        fr: 'Retirer'
-                                    },
-                                    value: 'remove'
-                                },
-                                {
-                                    name: 'Reset',
-                                    name_localizations: {
-                                        fr: 'Réinitialiser'
-                                    },
-                                    value: 'reset'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'text',
-                            nameLocalizations: { fr: 'texte' },
-                            description: 'The new status content.',
-                            descriptionLocalizations: {
-                                fr: 'Le nouveau contenu du statut.'
-                            },
-                            type: ApplicationCommandOptionType.String,
-                            required: false,
-                            maxLength: 128,
-                            autocomplete: true
-                        },
-                        {
-                            name: 'type',
-                            nameLocalizations: { fr: 'type' },
-                            description: 'The new status type.',
-                            descriptionLocalizations: {
-                                fr: 'Le nouveau type de statut.'
-                            },
-                            type: ApplicationCommandOptionType.String,
-                            required: false,
-                            choices: [
-                                {
-                                    name: 'Playing',
-                                    name_localizations: {
-                                        fr: 'Joue'
-                                    },
-                                    value: 'Playing'
-                                },
-                                {
-                                    name: 'Listening',
-                                    name_localizations: {
-                                        fr: 'Écoute'
-                                    },
-                                    value: 'Listening'
-                                },
-                                {
-                                    name: 'Watching',
-                                    name_localizations: {
-                                        fr: 'Regarde'
-                                    },
-                                    value: 'Watching'
-                                },
-                                {
-                                    name: 'Streaming',
-                                    name_localizations: {
-                                        fr: 'Diffuse'
-                                    },
-                                    value: 'Streaming'
-                                },
-                                {
-                                    name: 'Competing',
-                                    name_localizations: {
-                                        fr: 'Compétitionne'
-                                    },
-                                    value: 'Competing'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'url',
-                            nameLocalizations: { fr: 'url' },
-                            description: 'The new streaming url.',
-                            descriptionLocalizations: {
-                                fr: "L'url de la nouvelle diffusion."
-                            },
-                            type: ApplicationCommandOptionType.String,
-                            required: false
-                        }
-                    ]
-                },
-                {
-                    name: 'status',
-                    nameLocalizations: { fr: 'statut' },
-                    description: 'Used to change my status.',
-                    descriptionLocalizations: {
-                        fr: 'Utilisé pour changer mon statut.'
-                    },
-                    type: ApplicationCommandOptionType.Subcommand,
-                    options: [
-                        {
-                            name: 'status',
-                            nameLocalizations: { fr: 'statut' },
-                            description: 'The new status.',
-                            descriptionLocalizations: {
-                                fr: 'Le nouveau statut.'
-                            },
-                            type: ApplicationCommandOptionType.String,
-                            required: true,
-                            choices: [
-                                {
-                                    name: 'Online',
-                                    nameLocalizations: {
-                                        fr: 'En ligne'
-                                    },
-                                    value: 'online'
-                                },
-                                {
-                                    name: 'Idle',
-                                    nameLocalizations: {
-                                        fr: 'Inactif'
-                                    },
-                                    value: 'idle'
-                                },
-                                {
-                                    name: 'Do Not Disturb',
-                                    nameLocalizations: {
-                                        fr: 'Ne pas déranger'
-                                    },
-                                    value: 'dnd'
-                                },
-                                {
-                                    name: 'Invisible',
-                                    nameLocalizations: {
-                                        fr: 'Invisible'
-                                    },
-                                    value: 'invisible'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
-    managedOptions: {
-        ephemeralSending: false,
-        allowDms: false,
-        isNSFW: false,
-        clientRequiredPermissions: [
-            PermissionFlagsBits.EmbedLinks,
-            PermissionFlagsBits.SendMessages,
-            PermissionFlagsBits.ReadMessageHistory
-        ],
-        userRequiredPermissions: [
-            PermissionFlagsBits.Administrator,
-            PermissionFlagsBits.SendMessages,
-            PermissionFlagsBits.ReadMessageHistory
-        ]
-    },
-    customOptions: {
-        forBotOwnerOnly: true,
-        blacklistDisallowed: true
-    },
-    en: async (
+    fr: async (
         self: Self,
         db: Database,
         interaction: InteractionsResolvable,
@@ -344,7 +77,7 @@ export = {
                         .setDefault(false)
                         .setLabel(user.username)
                         .setDescription(
-                            `USER #${index + 1 + start} | BLACKLISTED FOR: ${user.blacklist!.reason?.split('').slice(0, 73).join('') ?? 'No reason provided.'}`
+                            `UTILISATEUR #${index + 1 + start} | LISTE NOIRE POUR: ${user.blacklist!.reason?.split('').slice(0, 50).join('') ?? 'No reason provided.'}`
                         )
                         .setValue(user.id.padEnd(10, '0'))
                         .setEmoji('*️⃣');
@@ -356,14 +89,14 @@ export = {
                     .setDisabled(false)
                     .setMaxValues(usersMenu.length === 0 ? 1 : usersMenu.length)
                     .setMinValues(1)
-                    .setPlaceholder('Select the users to be removed from the list.')
+                    .setPlaceholder('Sélectionnes les utilisateurs à retirer de la liste.')
                     .addOptions(
                         usersList.length === 0
                             ? [
                                   new StringSelectMenuOptionBuilder()
                                       .setDefault(true)
-                                      .setLabel('List empty')
-                                      .setDescription('it seems like this list is empty for now.')
+                                      .setLabel('Liste vide')
+                                      .setDescription("Il semble que cette liste soit vide pour l'instant.")
                                       .setValue(`managers-${type}-empty`)
                                       .setEmoji('💡')
                               ]
@@ -411,26 +144,30 @@ export = {
             const userList = records
                 .slice(start, end)
                 .map((user: UserDocument) => {
-                    return `USER: ${green(user.username)}\nAT: ${blue(
+                    return `UTILISATEUR: ${green(user.username)}\nPAR: ${blue(
                         (
-                            user.whitelist?.dates?.from?.toLocaleDateString('en-US', {
+                            user.whitelist?.dates?.from?.toLocaleDateString('fr-FR', {
                                 day: '2-digit',
                                 month: 'short',
                                 year: 'numeric'
-                            }) ?? 'Not found'
+                            }) ?? 'Introuvable'
                         ).replace(/ /g, ' ')
-                    )}\nBY: ${yellow(`${self.djsClient.users.cache.get(user.whitelist?.by!)?.username ?? 'Not found'} `)}`;
+                    )}\nPAR: ${yellow(`${self.djsClient.users.cache.get(user.whitelist?.by!)?.username ?? 'Introuvable'} `)}`;
                 })
                 .join(`\n${'-'.repeat(32)}\n`);
 
             return embed
                 .setColor(CommandColors.SUCCESS)
                 .setFooter(generateSuccessFooter(self)[lang])
-                .setDescription(`## ${type}-listed users ; ${records.length} records.`)
+                .setDescription(
+                    `## utilisateurs listé ${type === 'white' ? 'blanc' : 'noir'} ; ${records.length} enregistrements.`
+                )
                 .addFields({
-                    name: `📜 ${records.length > 9 ? 10 : records.length} records | ${start}/${end} at page ${start / 10 + 1}/${Math.floor(records.length / 10) + 1}`,
+                    name: `📜 ${records.length > 9 ? 10 : records.length} enregistrements | ${start}/${end} à la page ${start / 10 + 1}/${Math.floor(records.length / 10) + 1}`,
                     value: `\`\`\`ANSI\n${
-                        records.length === 0 ? green(`There is no user in the ${type} list.`) : userList
+                        records.length === 0
+                            ? green(`pas d'utilisateur dans la liste ${sub === 'white' ? 'blanche' : 'noire'}.`)
+                            : userList
                     }\`\`\``,
                     inline: false
                 });
@@ -440,7 +177,7 @@ export = {
         let myForgottenEmbed = new EmbedBuilder()
             .setColor(CommandColors.SUCCESS)
             .setFooter(generateSuccessFooter(self)[lang])
-            .setDescription(`## One of my property has been updated.`);
+            .setDescription(`## Une de mes caractéristiques a été modifié.`);
         let myRow1 = new ActionRowBuilder<MessageActionRowComponentBuilder>();
         let myRow2 = new ActionRowBuilder<MessageActionRowComponentBuilder>();
 
@@ -468,7 +205,7 @@ export = {
                     const name = interaction.options.getString('name', true);
                     myForgottenEmbed.addFields({
                         name: '📜 Changements',
-                        value: `\`\`\`ANSI\n${`OLD USERNAME: ${red(self.djsClient.user?.username ?? 'Unknown')}\nNEW USERNAME: ${green(name)}`}\`\`\``
+                        value: `\`\`\`ANSI\n${`ANCIEN PSEUDONYME: ${red(self.djsClient.user?.username ?? 'Unknown')}\nNOUVEU PSEUDONYME: ${green(name)}`}\`\`\``
                     });
                     await self.djsClient.user?.setUsername(name);
                     myEmbed = myForgottenEmbed;
@@ -478,7 +215,7 @@ export = {
                     myForgottenEmbed
                         .addFields({
                             name: '📜 Changements',
-                            value: `\`\`\`ANSI\n${`OLD AVATAR: ${red(self.djsClient.user?.avatarURL({ extension: 'png', size: 2048, forceStatic: true }) ?? 'Not found')})\nNEW AVATAR: ${green(avatar.url)}`}\`\`\``
+                            value: `\`\`\`ANSI\n${`ANCIEN AVATAR: ${red(self.djsClient.user?.avatarURL({ extension: 'png', size: 2048, forceStatic: true }) ?? 'Not found')})\nNOUVEL AVATAR: ${green(avatar.url)}`}\`\`\``
                         })
                         .setImage(avatar.url);
                     await self.djsClient.user?.setAvatar(avatar.url);
@@ -488,7 +225,7 @@ export = {
                     const status = interaction.options.getString('status', true);
                     myForgottenEmbed.addFields({
                         name: '📜 Changements',
-                        value: `\`\`\`ANSI\n${`OLD STATUS: ${red(self.djsClient.user?.presence.status ?? 'online')}\nNEW STATUS: ${green(status)}`}\`\`\``
+                        value: `\`\`\`ANSI\n${`ANCIEN STATUT: ${red(self.djsClient.user?.presence.status ?? 'online')}\nNOUVEAU STATUT: ${green(status)}`}\`\`\``
                     });
                     self.djsClient.user?.setStatus(status as 'online' | 'idle' | 'dnd' | 'invisible');
                     myEmbed = myForgottenEmbed;
@@ -509,7 +246,7 @@ export = {
                             activities.push({ text, type, url });
                             myForgottenEmbed.addFields({
                                 name: '📜 Changements',
-                                value: `\`\`\`ANSI\n${`ADDED ACTIVITY: ${green(text)}\nTYPE: ${yellow(ActivityType[type] ?? 'Not found')}\nURL: ${blue(url ?? 'Not provided')}`}\`\`\``
+                                value: `\`\`\`ANSI\n${`ACTIVITE AJOUTE: ${green(text)}\nTYPE: ${yellow(ActivityType[type] ?? 'Introuvable')}\nURL: ${blue(url ?? 'Pas donnée')}`}\`\`\``
                             });
                             break;
                         case 'remove':
@@ -531,14 +268,14 @@ export = {
                             );
                             myForgottenEmbed.addFields({
                                 name: '📜 Changements',
-                                value: `\`\`\`ANSI\n${`REMOVED ACTIVITY: ${green(myActivity.text)}\nTYPE: ${yellow(ActivityType[myActivity.type] ?? 'Not found')}\nURL: ${blue(url ?? 'Not provided')}`}\`\`\``
+                                value: `\`\`\`ANSI\n${`ACTIVITE RETIRE: ${green(myActivity.text)}\nTYPE: ${yellow(ActivityType[myActivity.type] ?? 'Introuvable')}\nURL: ${blue(url ?? 'Pas donnée')}`}\`\`\``
                             });
                             break;
                         case 'reset':
                             activities = [];
                             myForgottenEmbed.addFields({
                                 name: '📜 Changements',
-                                value: `\`\`\`ANSI\n${`RESETED ALL THE ACTIVITIES`}\`\`\``
+                                value: `\`\`\`ANSI\n${`REINITIALISE TOUTES LES ACTIVITES`}\`\`\``
                             });
                             break;
                     }
@@ -578,7 +315,7 @@ export = {
                             self,
                             db,
                             i.guild.id,
-                            "You can't interact with this component as it is not yours."
+                            "Vous ne pouvez pas intéragir avec puisqu'il n'est pas de vous."
                         )
                     );
                 }
@@ -595,7 +332,7 @@ export = {
                                 user.blacklist = {
                                     isBlacklisted: result,
                                     by: result ? i.user.id : undefined,
-                                    reason: result ? 'No reason provided.' : undefined,
+                                    reason: result ? 'Aucune raison donnée.' : undefined,
                                     dates: {
                                         from: result ? new Date() : undefined,
                                         to: result ? undefined : undefined
@@ -603,6 +340,12 @@ export = {
                                     warns: result ? [] : [],
                                     evidences: result ? [] : []
                                 };
+                                db.emit(
+                                    result ? DatabaseEvents_E.OnBlacklistAdd : DatabaseEvents_E.OnBlacklistRemove,
+                                    self,
+                                    db,
+                                    value
+                                );
                             }
                             if (sub === 'white') {
                                 user.whitelist = {
@@ -612,6 +355,12 @@ export = {
                                         from: result ? new Date() : undefined
                                     }
                                 };
+                                db.emit(
+                                    result ? DatabaseEvents_E.OnWhitelistAdd : DatabaseEvents_E.OnWhitelistRemove,
+                                    self,
+                                    db,
+                                    value
+                                );
                             }
                             await user.save();
                         } else {
@@ -620,7 +369,7 @@ export = {
                                 blacklist = {
                                     isBlacklisted: true,
                                     by: i.user.id,
-                                    reason: 'No reason provided.',
+                                    reason: 'Aucune raison donnée.',
                                     dates: {
                                         from: new Date(),
                                         to: undefined
@@ -667,20 +416,6 @@ export = {
                             });
                         }
 
-                        if(sub === "white")
-                            db.emit(
-                                result ? DatabaseEvents_E.OnWhitelistAdd : DatabaseEvents_E.OnWhitelistRemove,
-                                self,
-                                db,
-                                value
-                            );
-                        else db.emit(
-                            result ? DatabaseEvents_E.OnBlacklistAdd : DatabaseEvents_E.OnBlacklistRemove,
-                            self,
-                            db,
-                            value
-                        );
-
                         // ? Sends a private message to the blacklisted/whitelisted/unblacklisted/unwhitelisted user.
                         try {
                             // TODO: Add every properties such as evidences, reason, isTemp...
@@ -690,7 +425,7 @@ export = {
                                         .setColor(CommandColors.SUCCESS)
                                         .setFooter(generateSuccessFooter(self)[lang])
                                         .setDescription(
-                                            `## You have been ${i.isStringSelectMenu() ? 'un' : ''}${sub}listed by <@${i.user.id}>.`
+                                            `## Vous avez été ${i.isStringSelectMenu() ? 'un' : ''}${sub}listed par <@${i.user.id}>.`
                                         )
                                 ]
                             });
@@ -705,21 +440,23 @@ export = {
                         user: i.user,
                         target: i.client.users.cache.get(i.values[0])!,
                         actionString: result
-                            ? `${i.user.username} just added ${i.client.users.cache.get(i.values[0])!.username} and ${i.values.length} others to the list.`
-                            : `${i.user.username} just removed ${i.client.users.cache.get(i.values[0])!.username} and ${i.values.length} others from the list.`
+                            ? `${i.user.username} a ajouté ${i.client.users.cache.get(i.values[0])!.username} et ${i.values.length} autres de la liste.`
+                            : `${i.user.username} a retiré ${i.client.users.cache.get(i.values[0])!.username} et ${i.values.length} autres de la liste.`
                     };
                     const { user: executor, target, actionString: reason } = action;
 
                     const myUpdatedEmbed = new EmbedBuilder()
                         .setColor(CommandColors.SUCCESS)
                         .setFooter(generateSuccessFooter(self)[lang])
-                        .setDescription(`## You're on the way to add/remove people to this list.`)
+                        .setDescription(`## Vous êtes sur le point d'ajouter des utilisateurs à la list`)
                         .addFields({
-                            name: `📜 Last added user`,
+                            name: `📜 Dernier ajout`,
                             value: `\`\`\`ANSI\n${
                                 action
-                                    ? `USER: ${green(target!.username)}\nBY: ${green(executor!.username)}\nFOR: ${yellow(reason!)}`
-                                    : green(`There is no user in the ${sub} list.`)
+                                    ? `UTILISATEUR: ${green(target!.username)}\nPAR: ${green(executor!.username)}\nPOUR: ${yellow(reason!)}`
+                                    : green(
+                                          `Il n'y a pas d'utilisateur dans la liste ${sub === 'white' ? 'blanche' : 'noire'}.`
+                                      )
                             }\`\`\``
                         });
                     const myUpdatedRow1 = new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
@@ -728,7 +465,7 @@ export = {
                             .setDisabled(false)
                             .setMaxValues(25)
                             .setMinValues(1)
-                            .setPlaceholder('Select the users to be added to the list.')
+                            .setPlaceholder('Sélectionnes les utilisateurs à ajouter.')
                             .setDefaultUsers([])
                     );
                     const myUpdatedRow2 = new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
@@ -781,13 +518,15 @@ export = {
                             const myUpdatedEmbed = new EmbedBuilder()
                                 .setColor(CommandColors.SUCCESS)
                                 .setFooter(generateSuccessFooter(self)[lang])
-                                .setDescription(`## You're on the way to add people to this list.`)
+                                .setDescription(`## Vous êtes sur le point d'ajouter des utilisateurs à la liste.`)
                                 .addFields({
-                                    name: `📜 Last added user`,
+                                    name: `📜 Dernier ajout`,
                                     value: `\`\`\`ANSI\n${
                                         action
-                                            ? `USER: ${green(target!.username)}\nBY: ${green(executor!.username)}\nFOR: ${yellow(reason!)}`
-                                            : green(`There is no user in the ${sub} list.`)
+                                            ? `UTILISATEUR: ${green(target!.username)}\nPAR: ${green(executor!.username)}\nPOUR: ${yellow(reason!)}`
+                                            : green(
+                                                  `il n'y a pas d'utilisateur sur la liste ${sub === 'white' ? 'blanche' : 'noire'}.`
+                                              )
                                     }\`\`\``
                                 });
                             const myUpdatedRow1 =
@@ -797,7 +536,7 @@ export = {
                                         .setDisabled(false)
                                         .setMaxValues(25)
                                         .setMinValues(1)
-                                        .setPlaceholder('Select the users to be added to the list.')
+                                        .setPlaceholder('Sélectionnes les utilisateurs à ajouter à la liste.')
                                         .setDefaultUsers([])
                                 );
                             const myUpdatedRow2 =
